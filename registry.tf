@@ -1,42 +1,50 @@
-resource "kubernetes_service" "registry" {
+variable "image" {}
+variable "port" {}
+variable "replicas" {}
+
+variable "stack" {
+  default = "registry"
+}
+
+resource "kubernetes_service" "main" {
   metadata {
-    name = "registry"
+    name = var.stack
   }
   spec {
     selector = {
-      app = "registry"
+      app = var.stack
     }
     port {
       port        = "5000"
       target_port = "5000"
-      node_port   = "30500"
+      node_port   = var.port
     }
     type             = "NodePort"
     session_affinity = "ClientIP"
   }
 }
 
-resource "kubernetes_deployment" "registry" {
+resource "kubernetes_deployment" "main" {
   metadata {
-    name = "registry"
+    name = var.stack
   }
   spec {
-    replicas = 2
+    replicas = var.replicas
     selector {
       match_labels = {
-        app = "registry"
+        app = var.stack
       }
     }
     template {
       metadata {
         labels = {
-          app = "registry"
+          app = var.stack
         }
       }
       spec {
         container {
-          image = "registry:2.8"
-          name  = "registry"
+          image = var.image
+          name  = var.stack
           volume_mount {
             name       = "cert-vol"
             mount_path = "/var/run/secrets/certs"
@@ -64,7 +72,7 @@ resource "kubernetes_deployment" "registry" {
         volume {
           name = "config-yml"
           config_map {
-            name = "registry"
+            name = var.stack
           }
         }
       }
