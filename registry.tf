@@ -11,8 +11,8 @@ resource "kubernetes_service" "registry" {
       target_port = "5000"
       node_port   = "30500"
     }
-    type         = "NodePort"
-    session_affinity        = "ClientIP"
+    type             = "NodePort"
+    session_affinity = "ClientIP"
   }
 }
 
