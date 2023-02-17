@@ -1,4 +1,4 @@
-This is a sample of how to run a bomb-proof registry in kubernetes, backed by a ceph object store.
+This is a sample of how to run a highly resilient registry in kubernetes, backed by a ceph object store.
 
 Other S3 compatibles should work as well.
 
