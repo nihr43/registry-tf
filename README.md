@@ -2,6 +2,8 @@ This is a sample of how to run a bomb-proof registry in kubernetes, backed by a 
 
 Other S3 compatibles should work as well.
 
+Read more on motivation and design [here](https://signal.nih.earth/posts/image_registry/).
+
 Certificates and configmap are expected to exist before running the terraform module:
 
 ```
