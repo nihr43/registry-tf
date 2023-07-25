@@ -22,6 +22,7 @@ resource "kubernetes_service" "main" {
     }
     type             = "NodePort"
     session_affinity = "ClientIP"
+    external_traffic_policy = "Local"
     external_ips     = [var.ip]
   }
 }
