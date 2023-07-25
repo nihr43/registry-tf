@@ -1,5 +1,6 @@
 variable "image" {}
 variable "port" {}
+variable "ip" {}
 variable "replicas" {}
 
 variable "stack" {
@@ -21,6 +22,7 @@ resource "kubernetes_service" "main" {
     }
     type             = "NodePort"
     session_affinity = "ClientIP"
+    external_ips     = [var.ip]
   }
 }
 
